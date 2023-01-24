@@ -2,23 +2,16 @@
 // 0, 7, 8, -2, -2 -> 2
 // 1, -7, 567, 89, 223-> 3 (В описании задачи ошибка: "-> 4", а не "-> 3")
 
-//число M заранее не определено
-int m = new Random().Next(5,10);
-int[] array = new int[m];
-
-int InputInt(string message)
+int[] GetArrayFromString(string stringArray)
 {
-    Console.Write(message);
-    return Convert.ToInt32(Console.ReadLine());
+    string[] numS = stringArray.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+    int[] result = new int[numS.Length];
+    for (int i = 0; i < result.Length; i++)
+        result[i] = int.Parse(numS[i]);
+    return result;
 }
 
-void FillArray()
-{
-    for (int i = 0; i < m; i++)
-        array[i] = InputInt($"Введите {(i+1)} число из {m}: ");
-}
-
-int OnlyPositive()
+int GetCountPositiveElements(int[] array)
 {
     int count = 0;
     foreach (int item in array)
@@ -27,7 +20,8 @@ int OnlyPositive()
     return count;
 }
 
-FillArray();
-
-Console.WriteLine("Положительных чисел: "+OnlyPositive());
+Console.Write("Введите числа через пробел: ");
+int[] numbers = GetArrayFromString(Console.ReadLine());
+Console.WriteLine($"Количество чисел больше 0 -> {GetCountPositiveElements(numbers)}");
+Console.WriteLine();
 
